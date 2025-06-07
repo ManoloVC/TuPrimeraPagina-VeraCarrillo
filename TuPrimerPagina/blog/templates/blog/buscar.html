@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h2>Buscar Posts</h2>
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+{% if posts %}
+    <h3 class="mt-4">Resultados:</h3>
+    <ul class="list-group">
+        {% for post in posts %}
+            <li class="list-group-item">
+                <h4>{{ post.titulo }}</h4>
+                <p>{{ post.contenido|truncatewords:30 }}</p>
+                <small>Autor: {{ post.autor }} | Fecha: {{ post.fecha_publicacion }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+{% elif request.GET.titulo %}
+    <p class="mt-4">No se encontraron posts con ese título.</p>
+{% endif %}
+{% endblock %}
